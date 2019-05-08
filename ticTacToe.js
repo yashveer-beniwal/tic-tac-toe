@@ -1,7 +1,7 @@
 const statuses = {
-  win: { label: 'Win', code: 0 },
-  inProgress: { label: 'In Progress', code: 1 },
-  end: { label: 'end', code: 2 }
+  inProgress: { label: 'In Progress', code: 0 },
+  win: { label: 'Win', code: 1 },
+  end: { label: 'End', code: 2 }
 };
 
 const symblols = {
@@ -18,13 +18,15 @@ class Game {
     this.status = this.getGameStatus();
   }
 
-  makeMove(xCoord, yCoord) {
+  makeMove(pos) {
+    if (!pos) return;
+    const { x, y } = pos;
+    if (x >= 3 && x < 0) return;
+    if (y >= 3 && y < 0) return;
     if (this.status !== statuses.inProgress) return;
-    if (xCoord >= 3 && xCoord < 0) return;
-    if (yCoord >= 3 && yCoord < 0) return;
-    if (this.matrix[yCoord][xcoord] !== '') return;
+    if (this.matrix[y][x] !== '') return;
 
-    this.matrix[yCoord][xcoord] = this.players[this.currentTurn];
+    this.matrix[y][x] = this.players[this.currentTurn];
     this.numberOfTurns = this.numberOfTurns - 1;
     this.status = this.getGameStatus();
 
@@ -36,9 +38,11 @@ class Game {
   }
 
   printGameMatrix() {
-    console.log(this.matrix[0].join(','), ';');
-    console.log(this.matrix[1].join(','), ';');
-    console.log(this.matrix[2].join(','), ';');
+    console.log(`
+    ${this.matrix[0].join(',')};
+    ${this.matrix[1].join(',')};
+    ${this.matrix[2].join(',')};
+    `);
     console.log(this.status);
   }
 
