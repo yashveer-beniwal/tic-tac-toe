@@ -20,7 +20,7 @@ class Game {
 
   makeMove(xCoord, yCoord) {
     if (this.status !== statuses.inProgress) return;
-    if (this.status) if (xCoord >= 3 && xCoord < 0) return;
+    if (xCoord >= 3 && xCoord < 0) return;
     if (yCoord >= 3 && yCoord < 0) return;
     if (this.matrix[yCoord][xcoord] !== '') return;
 
@@ -99,4 +99,3 @@ newGame.printGameMatrix();
 
 newGame = new Game([['', '', ''], ['X', 'X', 'X'], ['O', 'X', 'X']]);
 newGame.printGameMatrix();
-
